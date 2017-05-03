@@ -77,7 +77,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarViewCell>!
     
     public var changeCurrentIndex: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ animated: Bool) -> Void)?
-    public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
+    public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool, _ oldIndex: Int, _ newIndex: Int) -> Void)?
     
     @IBOutlet public weak var buttonBarView: ButtonBarView!
     
@@ -238,7 +238,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
             let newIndexPath = IndexPath(item: currentIndex, section: 0)
 
             let cells = cellForItems(at: [oldIndexPath, newIndexPath])
-            changeCurrentIndexProgressive(cells.first!, cells.last!, progressPercentage, indexWasChanged, true)
+            changeCurrentIndexProgressive(cells.first!, cells.last!, progressPercentage, indexWasChanged, true, oldIndexPath.row, newIndexPath.row)
         }
     }
 
@@ -278,7 +278,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let newCell = buttonBarView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ButtonBarViewCell
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(oldCell, newCell, 1, true, true)
+                changeCurrentIndexProgressive(oldCell, newCell, 1, true, true, currentIndex, indexPath.row)
             }
         }
         else {
@@ -323,7 +323,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, 1, true, false)
+                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, 1, true, false, indexPath.row, indexPath.row)
             }
         }
         else {

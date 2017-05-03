@@ -302,9 +302,14 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider
         let indicatorInfo = childController.indicatorInfo(for: self)
         
-        cell.label.text = indicatorInfo.title
+        cell.label.text = " " + indicatorInfo.title + " "
         cell.label.font = settings.style.buttonBarItemFont
-        cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
+        cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor
+        cell.label.backgroundColor = indicatorInfo.backgroundColor ?? UIColor.white
+        
+        cell.label.layer.cornerRadius = 5
+        cell.label.clipsToBounds = true
+
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {

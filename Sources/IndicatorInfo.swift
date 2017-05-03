@@ -29,6 +29,8 @@ public struct IndicatorInfo {
     public var title: String
     public var image: UIImage?
     public var highlightedImage: UIImage?
+    public var textColor: UIColor?
+    public var backgroundColor: UIColor?
     
     public init(title: String) {
         self.title = title
@@ -43,6 +45,13 @@ public struct IndicatorInfo {
         self.init(title: title, image: image)
         self.highlightedImage = highlightedImage
     }
+    
+    public init(title: String, textColor: UIColor?, backgroundColor: UIColor?) {
+        self.init(title: title)
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor
+    }
+    
 }
 
 

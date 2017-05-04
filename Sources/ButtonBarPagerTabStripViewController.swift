@@ -77,7 +77,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         return labelSize.width + (self?.settings.style.buttonBarItemLeftRightMargin ?? 8) * 2
     })
     
-    open var changeCurrentIndex: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ animated: Bool) -> Void)?
+    open var changeCurrentIndex: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ animated: Bool, _ oldIndex: Int, _ newIndex: Int) -> Void)?
     open var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool, _ oldIndex: Int, _ newIndex: Int) -> Void)?
     
     @IBOutlet open lazy var buttonBarView: ButtonBarView! = { [unowned self] in
@@ -213,7 +213,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         if let changeCurrentIndex = changeCurrentIndex {
             let oldCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex != fromIndex ? fromIndex : toIndex, section: 0)) as? ButtonBarViewCell
             let newCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ButtonBarViewCell
-            changeCurrentIndex(oldCell, newCell, true)
+            changeCurrentIndex(oldCell, newCell, true, fromIndex, toIndex)
         }
     }
 
@@ -251,7 +251,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         }
         else {
             if let changeCurrentIndex = changeCurrentIndex {
-                changeCurrentIndex(oldCell, newCell, true)
+                changeCurrentIndex(oldCell, newCell, true, currentIndex, indexPath.row)
             }
         }
         moveToViewController(at: indexPath.item)
@@ -291,12 +291,12 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, 1, true, false, indexPath.row, indexPath.row)
+                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, 1, true, false, currentIndex, indexPath.row)
             }
         }
         else {
             if let changeCurrentIndex = changeCurrentIndex {
-                changeCurrentIndex(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, false)
+                changeCurrentIndex(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, false, currentIndex, indexPath.row)
             }
         }
         return cell

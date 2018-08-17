@@ -318,7 +318,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         }
         
         let myLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ButtonBarPagerTabStripViewController.longPushedCell(sender:)))
-        myLongPressGesture.minimumPressDuration = 0.1
+        myLongPressGesture.minimumPressDuration = 1.0
         cell.addGestureRecognizer(myLongPressGesture)
         
         return cell

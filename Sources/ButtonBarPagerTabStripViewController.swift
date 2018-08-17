@@ -324,7 +324,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         return cell
     }
     
-    @objc private func longPushedCell(sender:UILongPressGestureRecognizer) {
+    @objc func longPushedCell(sender:UILongPressGestureRecognizer) {
         longTapDelegate?.pushedButtonBarCell()
     }
     

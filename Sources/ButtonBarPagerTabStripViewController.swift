@@ -24,6 +24,10 @@
 
 import Foundation
 
+protocol ButtonBarPagerTabStripViewControllerDelegate {
+    func pushedButtonBarCell()
+}
+
 public enum ButtonBarItemSpec<CellType: UICollectionViewCell> {
     
     case nibFile(nibName: String, bundle: Bundle?, width:((IndicatorInfo)-> CGFloat))
@@ -67,6 +71,7 @@ public struct ButtonBarPagerTabStripSettings {
 open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     open var settings = ButtonBarPagerTabStripSettings()
+    var longTapDelegate: ButtonBarPagerTabStripViewControllerDelegate?
     
     lazy open var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarViewCell> = .nibFile(nibName: "ButtonCell", bundle: Bundle(for: ButtonBarViewCell.self), width:{ [weak self] (childItemInfo) -> CGFloat in
         let label = UILabel()
@@ -311,7 +316,16 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 changeCurrentIndex(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, false, currentIndex, indexPath.row)
             }
         }
+        
+        let myLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ButtonBarPagerTabStripViewController.longPushedCell(sender:)))
+        myLongPressGesture.minimumPressDuration = 0.1
+        cell.addGestureRecognizer(myLongPressGesture)
+        
         return cell
+    }
+    
+    @objc private func longPushedCell(sender:UILongPressGestureRecognizer) {
+        longTapDelegate?.pushedButtonBarCell()
     }
     
     // MARK: - UIScrollViewDelegate

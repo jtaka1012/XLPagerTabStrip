@@ -326,6 +326,11 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     
     @objc func longPushedCell(sender:UILongPressGestureRecognizer) {
         longTapDelegate?.pushedButtonBarCell()
+        
+        let noticeName = NSNotification.Name("longPushedTitleCell")
+        let noticCenter = NotificationCenter.default
+        
+        noticCenter.post(name: noticeName, object: nil)
     }
     
     // MARK: - UIScrollViewDelegate

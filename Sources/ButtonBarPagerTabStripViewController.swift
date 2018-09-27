@@ -335,9 +335,10 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let indicatorInfo = childController.indicatorInfo(for: self)
         
         let title = indicatorInfo.title ?? ""
+        let accesibiilityTitle = indicatorInfo.accessibilityLabel ?? ""
         
-        cell.label.text = " " + title + " "
-        cell.accessibilityLabel = indicatorInfo.accessibilityLabel
+        cell.label.text = "　" + title + "　"
+        cell.accessibilityLabel = "　" + accesibiilityTitle + "　"
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.label.backgroundColor = indicatorInfo.backgroundColor ?? UIColor.white

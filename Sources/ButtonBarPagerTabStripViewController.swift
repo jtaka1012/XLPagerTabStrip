@@ -334,11 +334,9 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider // swiftlint:disable:this force_cast
         let indicatorInfo = childController.indicatorInfo(for: self)
         
-        let title = indicatorInfo.title ?? ""
-        let accesibiilityTitle = indicatorInfo.accessibilityLabel ?? ""
-        
-        cell.label.text = "　" + title + "　"
-        cell.accessibilityLabel = "　" + accesibiilityTitle + "　"
+        // ここでタイトルを設定している
+        cell.label.text = indicatorInfo.title
+        cell.accessibilityLabel = indicatorInfo.accessibilityLabel
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.label.backgroundColor = indicatorInfo.backgroundColor ?? UIColor.white

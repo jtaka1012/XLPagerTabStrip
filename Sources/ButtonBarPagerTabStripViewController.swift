@@ -288,7 +288,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
             fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
         }
-        return CGSize(width: cellWidthValue, height: collectionView.frame.size.height)
+        return CGSize(width: cellWidthValue + 15, height: collectionView.frame.size.height)
     }
 
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -333,18 +333,16 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider // swiftlint:disable:this force_cast
         let indicatorInfo = childController.indicatorInfo(for: self)
-        
         // ここでタイトルを設定している
         let title = indicatorInfo.title ?? ""
-        cell.label.text = title + "  　"
-        cell.accessibilityLabel = indicatorInfo.accessibilityLabel
+        cell.label.text = title + " 　"
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.label.backgroundColor = indicatorInfo.backgroundColor ?? UIColor.white
-        
         cell.label.layer.cornerRadius = 5
+        cell.layer.cornerRadius = 5
         cell.label.clipsToBounds = true
-        
+
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {
@@ -353,7 +351,6 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         if let highlightedImage = indicatorInfo.highlightedImage {
             cell.imageView.highlightedImage = highlightedImage
         }
-        
         configureCell(cell, indicatorInfo: indicatorInfo)
 
         if pagerBehaviour.isProgressiveIndicator {
@@ -365,13 +362,11 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 changeCurrentIndex(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, false, currentIndex, indexPath.row)
             }
         }
-        
         let myLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ButtonBarPagerTabStripViewController.longPushedCell(sender:)))
         myLongPressGesture.minimumPressDuration = 0.5
         cell.addGestureRecognizer(myLongPressGesture)
-        
         cell.isAccessibilityElement = true
-        cell.accessibilityLabel = cell.label.text
+        cell.accessibilityLabel = title
         cell.accessibilityTraits |= UIAccessibilityTraitButton
         cell.accessibilityTraits |= UIAccessibilityTraitHeader
 

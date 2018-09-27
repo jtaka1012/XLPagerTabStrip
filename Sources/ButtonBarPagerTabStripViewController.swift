@@ -336,7 +336,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         
         // ここでタイトルを設定している
         let title = indicatorInfo.title ?? ""
-        cell.label.text = title + "  "
+        cell.label.text = title + "  　"
         cell.accessibilityLabel = indicatorInfo.accessibilityLabel
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor

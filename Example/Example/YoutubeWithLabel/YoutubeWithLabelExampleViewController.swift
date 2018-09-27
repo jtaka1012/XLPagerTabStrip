@@ -1,4 +1,4 @@
-//  YoutubeExampleViewController.swift
+//  YoutubeWithLabelExampleViewController.swift
 //  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
 //
 //  Copyright (c) 2017 Xmartlabs ( http://xmartlabs.com )
@@ -25,7 +25,7 @@
 import Foundation
 import XLPagerTabStrip
 
-class YoutubeExampleViewController: BaseButtonBarPagerTabStripViewController<YoutubeIconCell> {
+class YoutubeWithLabelExampleViewController: BaseButtonBarPagerTabStripViewController<YoutubeIconWithLabelCell> {
 
     let redColor = UIColor(red: 221/255.0, green: 0/255.0, blue: 19/255.0, alpha: 1.0)
     let unselectedIconColor = UIColor(red: 73/255.0, green: 8/255.0, blue: 10/255.0, alpha: 1.0)
@@ -37,8 +37,8 @@ class YoutubeExampleViewController: BaseButtonBarPagerTabStripViewController<You
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "YoutubeIconCell", bundle: Bundle(for: YoutubeIconCell.self), width: { _ in
-                return 55.0
+        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "YoutubeIconWithLabelCell", bundle: Bundle(for: YoutubeIconWithLabelCell.self), width: { _ in
+                return 70.0
         })
     }
 
@@ -54,10 +54,12 @@ class YoutubeExampleViewController: BaseButtonBarPagerTabStripViewController<You
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
 
-        changeCurrentIndexProgressive = { [weak self] (oldCell: YoutubeIconCell?, newCell: YoutubeIconCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
+        changeCurrentIndexProgressive = { [weak self] (oldCell: YoutubeIconWithLabelCell?, newCell: YoutubeIconWithLabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
             oldCell?.iconImage.tintColor = self?.unselectedIconColor
+            oldCell?.iconLabel.textColor = self?.unselectedIconColor
             newCell?.iconImage.tintColor = .white
+            newCell?.iconLabel.textColor = .white
         }
         super.viewDidLoad()
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -73,8 +75,9 @@ class YoutubeExampleViewController: BaseButtonBarPagerTabStripViewController<You
         return [child_1, child_2, child_3]
     }
 
-    override func configure(cell: YoutubeIconCell, for indicatorInfo: IndicatorInfo) {
+    override func configure(cell: YoutubeIconWithLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconImage.image = indicatorInfo.image?.withRenderingMode(.alwaysTemplate)
+        cell.iconLabel.text = indicatorInfo.title?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {

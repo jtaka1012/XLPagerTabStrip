@@ -1,7 +1,7 @@
 //  IndicatorInfo.swift
 //  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
 //
-//  Copyright (c) 2016 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2017 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,25 +25,40 @@
 import Foundation
 
 public struct IndicatorInfo {
-    
-    public var title: String
+
+    public var title: String?
     public var image: UIImage?
     public var highlightedImage: UIImage?
     public var textColor: UIColor?
     public var backgroundColor: UIColor?
+    public var accessibilityLabel: String?
+    public var userInfo: Any?
     
-    public init(title: String) {
+    public init(title: String?) {
         self.title = title
+        self.accessibilityLabel = title
     }
     
-    public init(title: String, image: UIImage?) {
-        self.init(title: title)
+    public init(image: UIImage?, highlightedImage: UIImage? = nil, userInfo: Any? = nil) {
         self.image = image
+        self.highlightedImage = highlightedImage
+        self.userInfo = userInfo
     }
     
-    public init(title: String, image: UIImage?, highlightedImage: UIImage?) {
-        self.init(title: title, image: image)
+    public init(title: String?, image: UIImage?, highlightedImage: UIImage? = nil, userInfo: Any? = nil) {
+        self.title = title
+        self.accessibilityLabel = title
+        self.image = image
         self.highlightedImage = highlightedImage
+        self.userInfo = userInfo
+    }
+    
+    public init(title: String?, accessibilityLabel:String?, image: UIImage?, highlightedImage: UIImage? = nil, userInfo: Any? = nil) {
+        self.title = title
+        self.accessibilityLabel = accessibilityLabel
+        self.image = image
+        self.highlightedImage = highlightedImage
+        self.userInfo = userInfo
     }
     
     public init(title: String, textColor: UIColor?, backgroundColor: UIColor?) {
@@ -54,18 +69,20 @@ public struct IndicatorInfo {
     
 }
 
-
 extension IndicatorInfo : ExpressibleByStringLiteral {
-    
-    public init(stringLiteral value: String){
+
+    public init(stringLiteral value: String) {
         title = value
+        accessibilityLabel = value
     }
-    
-    public init(extendedGraphemeClusterLiteral value: String){
+
+    public init(extendedGraphemeClusterLiteral value: String) {
         title = value
+        accessibilityLabel = value
     }
-    
-    public init(unicodeScalarLiteral value: String){
+
+    public init(unicodeScalarLiteral value: String) {
         title = value
+        accessibilityLabel = value
     }
 }

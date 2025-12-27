@@ -16,11 +16,7 @@ let package = Package(
         .target(
             name: "XLPagerTabStrip",
             path: "Sources",
-            resources: [.process("ButtonCell.xib")],
-            publicHeadersPath: ".",
-            cSettings: [
-                .headerSearchPath(".")
-            ]
+            resources: [.process("ButtonCell.xib")]
         ),
         .testTarget(
             name: "XLPagerTabStripTests",

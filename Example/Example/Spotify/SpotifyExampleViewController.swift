@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import XLPagerTabStrip
 
 class SpotifyExampleViewController: ButtonBarPagerTabStripViewController {
@@ -46,7 +46,7 @@ class SpotifyExampleViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarLeftContentInset = 20
         settings.style.buttonBarRightContentInset = 20
 
-        changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
+        changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool, _, _) -> Void in
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = UIColor(red: 138/255.0, green: 138/255.0, blue: 144/255.0, alpha: 1.0)
             newCell?.label.textColor = .white

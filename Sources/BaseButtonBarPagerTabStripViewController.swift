@@ -22,9 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     public var settings = ButtonBarPagerTabStripSettings()
     public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarCellType>!
@@ -51,6 +51,8 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        let defaultBundle = XLPagerTabStripResources.bundle
+
         let buttonBarViewAux = buttonBarView ?? {
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
@@ -91,8 +93,9 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         buttonBarView.selectedBarHeight = settings.style.selectedBarHeight
         // register button bar item cell
         switch buttonBarItemSpec! {
-        case .nibFile(let nibName, let bundle, _):
-            buttonBarView.register(UINib(nibName: nibName, bundle: bundle), forCellWithReuseIdentifier:"Cell")
+        case .nibFile(let nibName, let customBundle, _):
+            let nibBundle = customBundle ?? defaultBundle
+            buttonBarView.register(UINib(nibName: nibName, bundle: nibBundle), forCellWithReuseIdentifier:"Cell")
         case .cellClass:
             buttonBarView.register(ButtonBarCellType.self, forCellWithReuseIdentifier:"Cell")
         }
@@ -195,7 +198,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
     // MARK: - UICollectionViewDelegateFlowLayut
 
-    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
             fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
         }
@@ -322,12 +325,7 @@ open class ExampleBaseButtonBarPagerTabStripViewController: BaseButtonBarPagerTa
     }
 
     open func initialize() {
-        var bundle = Bundle(for: ButtonBarViewCell.self)
-        if let resourcePath = bundle.path(forResource: "XLPagerTabStrip", ofType: "bundle") {
-            if let resourcesBundle = Bundle(path: resourcePath) {
-                bundle = resourcesBundle
-            }
-        }
+        let bundle = XLPagerTabStripResources.bundle
         
         buttonBarItemSpec = .nibFile(nibName: "ButtonCell", bundle: bundle, width: { [weak self] (childItemInfo) -> CGFloat in
             let label = UILabel()
@@ -335,7 +333,8 @@ open class ExampleBaseButtonBarPagerTabStripViewController: BaseButtonBarPagerTa
             label.font = self?.settings.style.buttonBarItemFont ?? label.font
             label.text = childItemInfo.title
             let labelSize = label.intrinsicContentSize
-            return labelSize.width + CGFloat(self?.settings.style.buttonBarItemLeftRightMargin ?? 8 * 2)
+            let margin = self?.settings.style.buttonBarItemLeftRightMargin ?? 8
+            return labelSize.width + margin * 2
             })
     }
 

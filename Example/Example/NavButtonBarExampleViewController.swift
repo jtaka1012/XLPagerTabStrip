@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import XLPagerTabStrip
 
 class NavButtonBarExampleViewController: ButtonBarPagerTabStripViewController {
@@ -38,7 +38,7 @@ class NavButtonBarExampleViewController: ButtonBarPagerTabStripViewController {
         buttonBarView.removeFromSuperview()
         navigationController?.navigationBar.addSubview(buttonBarView)
 
-        changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
+        changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool, _, _) -> Void in
             guard changeCurrentIndex == true else { return }
 
             oldCell?.label.textColor = UIColor(white: 1, alpha: 0.6)

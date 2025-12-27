@@ -7,7 +7,8 @@ Pod::Spec.new do |s|
   s.author           = { "Martin Barreto" => "martin@xmartlabs.com" }
   s.source           = { git: "https://github.com/xmartlabs/XLPagerTabStrip.git", tag: s.version.to_s }
   s.social_media_url = 'https://twitter.com/xmartlabs'
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '17.0'
+  s.swift_versions = ['5.0', '5.9']
   s.requires_arc = true
   s.ios.source_files = 'Sources/**/*.{h,m,swift}'
   s.ios.frameworks = 'UIKit', 'Foundation'

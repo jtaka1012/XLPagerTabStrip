@@ -22,7 +22,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
+
+// Shared resource bundle lookup for code and SwiftPM.
+internal enum XLPagerTabStripResources {
+    static var bundle: Bundle {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
+        let baseBundle = Bundle(for: ButtonBarViewCell.self)
+        if let resourcePath = baseBundle.path(forResource: "XLPagerTabStrip", ofType: "bundle"),
+           let resourcesBundle = Bundle(path: resourcePath) {
+            return resourcesBundle
+        }
+        return baseBundle
+        #endif
+    }
+}
 
 protocol ButtonBarPagerTabStripViewControllerDelegate {
     func pushedButtonBarCell()
@@ -76,7 +92,7 @@ public struct ButtonBarPagerTabStripSettings {
     public var style = Style()
 }
 
-open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     public var settings = ButtonBarPagerTabStripSettings()
     var longTapDelegate: ButtonBarPagerTabStripViewControllerDelegate?
@@ -107,12 +123,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        var bundle = Bundle(for: ButtonBarViewCell.self)
-        if let resourcePath = bundle.path(forResource: "XLPagerTabStrip", ofType: "bundle") {
-            if let resourcesBundle = Bundle(path: resourcePath) {
-                bundle = resourcesBundle
-            }
-        }
+        let bundle = XLPagerTabStripResources.bundle
         
         buttonBarItemSpec = .nibFile(nibName: "ButtonCell", bundle: bundle, width: { [weak self] (childItemInfo) -> CGFloat in
                 let label = UILabel()
@@ -266,12 +277,11 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
         if reload {
             let indexPathsToReload = cells.enumerated()
-                .flatMap { (arg) -> IndexPath? in
-                    let (index, cell) = arg
-                    return cell == nil ? indexPaths[index] : nil
+                .compactMap { (index, cell) -> IndexPath? in
+                    cell == nil ? indexPaths[index] : nil
                 }
-                .flatMap { (indexPath: IndexPath) -> IndexPath? in
-                    return (indexPath.item >= 0 && indexPath.item < buttonBarView.numberOfItems(inSection: indexPath.section)) ? indexPath : nil
+                .compactMap { indexPath -> IndexPath? in
+                    (indexPath.item >= 0 && indexPath.item < buttonBarView.numberOfItems(inSection: indexPath.section)) ? indexPath : nil
                 }
 
             if !indexPathsToReload.isEmpty {
@@ -284,7 +294,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
     // MARK: - UICollectionViewDelegateFlowLayut
 
-    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
             fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
         }
@@ -367,8 +377,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         cell.addGestureRecognizer(myLongPressGesture)
         cell.isAccessibilityElement = true
         cell.accessibilityLabel = title
-        cell.accessibilityTraits |= UIAccessibilityTraitButton
-        cell.accessibilityTraits |= UIAccessibilityTraitHeader
+        cell.accessibilityTraits.formUnion([.button, .header])
 
         return cell
     }

@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 
 public struct TwitterPagerTabStripSettings {
 
@@ -178,7 +178,7 @@ open class TwitterPagerTabStripViewController: PagerTabStripViewController, Page
             let navTitleLabel: UILabel = {
                 let label = UILabel()
                 label.text = indicatorInfo.title
-                label.font = UIApplication.shared.statusBarOrientation.isPortrait ? settings.style.portraitTitleFont : settings.style.landscapeTitleFont
+                label.font = (interfaceOrientation.isPortrait) ? settings.style.portraitTitleFont : settings.style.landscapeTitleFont
                 label.textColor = settings.style.titleColor
                 label.alpha = 0
                 return label
@@ -192,7 +192,7 @@ open class TwitterPagerTabStripViewController: PagerTabStripViewController, Page
 
     private func setNavigationViewItemsPosition(updateAlpha: Bool) {
         guard let distance = distanceValue else { return }
-        let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+        let isPortrait = interfaceOrientation.isPortrait
         let navBarHeight: CGFloat = navigationController!.navigationBar.frame.size.height
         for (index, label) in childTitleLabels.enumerated() {
             if updateAlpha {
@@ -231,4 +231,18 @@ open class TwitterPagerTabStripViewController: PagerTabStripViewController, Page
     private var distanceValue: CGFloat? {
         return navigationController.map { $0.navigationBar.convert($0.navigationBar.center, to: titleView) }?.x
     }
+
+    open override var interfaceOrientation: UIInterfaceOrientation {
+        if let orientation = view.window?.windowScene?.interfaceOrientation {
+            return orientation
+        }
+        if let orientation = UIApplication.shared.connectedScenes
+            .compactMap({ ($0 as? UIWindowScene)?.interfaceOrientation })
+            .first {
+            return orientation
+        }
+        // Fallback to .portrait if no orientation can be found
+        return .portrait
+    }
 }
+

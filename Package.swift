@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "XLPagerTabStrip",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(
@@ -24,5 +24,6 @@ let package = Package(
             path: "Tests",
             exclude: ["Info.plist"]
         )
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )

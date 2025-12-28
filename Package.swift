@@ -1,10 +1,10 @@
-// swift-tools-version:5.9
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
     name: "XLPagerTabStrip",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v11)
     ],
     products: [
         .library(
@@ -16,7 +16,11 @@ let package = Package(
         .target(
             name: "XLPagerTabStrip",
             path: "Sources",
-            resources: [.process("ButtonCell.xib")]
+            resources: [.process("ButtonCell.xib")],
+            publicHeadersPath: ".",
+            cSettings: [
+                .headerSearchPath(".")
+            ]
         ),
         .testTarget(
             name: "XLPagerTabStripTests",

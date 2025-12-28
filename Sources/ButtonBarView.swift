@@ -158,8 +158,8 @@ open class ButtonBarView: UICollectionView {
             let leftAlignmentOffset = sectionInset.left + cellHalfWidth
             let rightAlignmentOffset = frame.size.width - sectionInset.right - cellHalfWidth
             let numberOfItems = dataSource!.collectionView(self, numberOfItemsInSection: 0)
-            let progress = index / (numberOfItems - 1)
-            alignmentOffset = leftAlignmentOffset + (rightAlignmentOffset - leftAlignmentOffset) * CGFloat(progress) - cellHalfWidth
+            let progress = CGFloat(index) / CGFloat(max(numberOfItems - 1, 1))
+            alignmentOffset = leftAlignmentOffset + (rightAlignmentOffset - leftAlignmentOffset) * progress - cellHalfWidth
         }
 
         var contentOffset = cellFrame.origin.x - alignmentOffset

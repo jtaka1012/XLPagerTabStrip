@@ -1,10 +1,10 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
     name: "XLPagerTabStrip",
     platforms: [
-        .iOS(.v11)
+        .iOS(.v17)
     ],
     products: [
         .library(

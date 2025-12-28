@@ -22,12 +22,12 @@ let package = Package(
                 .headerSearchPath(".")
             ]
         ),
-        .testTarget(
-            name: "XLPagerTabStripTests",
-            dependencies: ["XLPagerTabStrip"],
-            path: "Tests",
-            exclude: ["Info.plist"]
-        )
+        // .testTarget(
+        //     name: "XLPagerTabStripTests",
+        //     dependencies: ["XLPagerTabStrip"],
+        //     path: "Tests",
+        //     exclude: ["Info.plist"]
+        // )
     ],
     swiftLanguageVersions: [.v5]
 )

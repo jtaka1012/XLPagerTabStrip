@@ -26,12 +26,42 @@ import UIKit
 
 open class ButtonBarViewCell: UICollectionViewCell {
 
-    @IBOutlet open var imageView: UIImageView!
-    @IBOutlet open var label: UILabel!
+    open var imageView: UIImageView!
+    open var label: UILabel!
 
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        configureAccessibility()
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        setupViews()
+        configureAccessibility()
+    }
+
+    private func setupViews() {
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+
+        label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 35),
+            imageView.heightAnchor.constraint(equalToConstant: 35),
+
+            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+    }
+
+    private func configureAccessibility() {
         isAccessibilityElement = true
         accessibilityTraits.formUnion([.button, .header])
     }

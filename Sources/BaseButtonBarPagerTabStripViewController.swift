@@ -327,7 +327,7 @@ open class ExampleBaseButtonBarPagerTabStripViewController: BaseButtonBarPagerTa
     open func initialize() {
         let bundle = XLPagerTabStripResources.bundle
         
-        buttonBarItemSpec = .nibFile(nibName: "ButtonCell", bundle: bundle, width: { [weak self] (childItemInfo) -> CGFloat in
+        buttonBarItemSpec = .cellClass(width: { [weak self] childItemInfo -> CGFloat in
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = self?.settings.style.buttonBarItemFont ?? label.font
@@ -335,7 +335,7 @@ open class ExampleBaseButtonBarPagerTabStripViewController: BaseButtonBarPagerTa
             let labelSize = label.intrinsicContentSize
             let margin = self?.settings.style.buttonBarItemLeftRightMargin ?? 8
             return labelSize.width + margin * 2
-            })
+        })
     }
 
     open override func configure(cell: ButtonBarViewCell, for indicatorInfo: IndicatorInfo) {

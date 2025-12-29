@@ -25,7 +25,6 @@
 		CB86ED6B1C4D6E6C00DA463B /* PagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB86ED6A1C4D6E6C00DA463B /* PagerTabStripViewController.swift */; };
 		CBA0A1FC1C502DA300C5748C /* BarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA0A1FA1C502DA300C5748C /* BarPagerTabStripViewController.swift */; };
 		CBA0A1FD1C502DA300C5748C /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA0A1FB1C502DA300C5748C /* BarView.swift */; };
-		CBBD43621C527E80001A748E /* TwitterPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBD43611C527E80001A748E /* TwitterPagerTabStripViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +60,6 @@
 		CB86ED6A1C4D6E6C00DA463B /* PagerTabStripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PagerTabStripViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CBA0A1FA1C502DA300C5748C /* BarPagerTabStripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarPagerTabStripViewController.swift; sourceTree = "<group>"; };
 		CBA0A1FB1C502DA300C5748C /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
-		CBBD43611C527E80001A748E /* TwitterPagerTabStripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterPagerTabStripViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +100,6 @@
 				CB86ED6A1C4D6E6C00DA463B /* PagerTabStripViewController.swift */,
 				CB71C6ED1C4EB988008EC806 /* SegmentedPagerTabStripViewController.swift */,
 				CB0986C31C51391600DF7087 /* ButtonBarPagerTabStripViewController.swift */,
-				CBBD43611C527E80001A748E /* TwitterPagerTabStripViewController.swift */,
 				28C83C831C54229A000B2902 /* BaseButtonBarPagerTabStripViewController.swift */,
 			);
 			name = Controllers;
@@ -301,7 +298,6 @@
 			files = (
 				28C83C841C54229A000B2902 /* BaseButtonBarPagerTabStripViewController.swift in Sources */,
 				CB0986C61C51395E00DF7087 /* ButtonBarView.swift in Sources */,
-				CBBD43621C527E80001A748E /* TwitterPagerTabStripViewController.swift in Sources */,
 				CBA0A1FD1C502DA300C5748C /* BarView.swift in Sources */,
 				CB7D614D1C529B9500A957BA /* FXPageControl.m in Sources */,
 				281BFDC31C511F120090C26F /* PagerTabStripBehaviour.swift in Sources */,

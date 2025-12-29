@@ -48,6 +48,7 @@ open class ButtonBarViewCell: UICollectionViewCell {
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         contentView.addSubview(label)
 
         NSLayoutConstraint.activate([
@@ -56,7 +57,8 @@ open class ButtonBarViewCell: UICollectionViewCell {
             imageView.widthAnchor.constraint(equalToConstant: 35),
             imageView.heightAnchor.constraint(equalToConstant: 35),
 
-            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }

@@ -12,37 +12,42 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zg4-fX-zUF" customClass="ButtonBarViewCell" customModule="XLPagerTabStrip" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+            <rect key="frame" x="0.0" y="0.0" width="80" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                <rect key="frame" x="0.0" y="0.0" width="80" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7f-rk-sQl">
-                        <rect key="frame" x="22" y="12" width="37.5" height="17"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-yJ-6Th">
-                        <rect key="frame" x="22.5" y="2.5" width="35" height="35"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="35" id="VRw-5F-5WY"/>
-                            <constraint firstAttribute="height" constant="35" id="ojk-Ug-Lgh"/>
-                        </constraints>
-                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOw-nw-6dt">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="56"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7f-rk-sQl">
+                                <rect key="frame" x="8" y="0.0" width="64" height="56"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="backgroundColor" red="0.027450980390000001" green="0.72549019609999998" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" red="0.027450980390000001" green="0.72549019609999998" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="tFG-yJ-6Th" firstAttribute="centerY" secondItem="zg4-fX-zUF" secondAttribute="centerY" id="5so-ZP-gRs"/>
-                <constraint firstItem="tFG-yJ-6Th" firstAttribute="centerX" secondItem="zg4-fX-zUF" secondAttribute="centerX" id="9em-NR-hoa"/>
-                <constraint firstItem="s7f-rk-sQl" firstAttribute="centerY" secondItem="zg4-fX-zUF" secondAttribute="centerY" id="ZeP-6I-AXE"/>
-                <constraint firstItem="s7f-rk-sQl" firstAttribute="centerX" secondItem="zg4-fX-zUF" secondAttribute="centerX" id="c15-bZ-hPG"/>
+                <constraint firstItem="OOw-nw-6dt" firstAttribute="leading" secondItem="zg4-fX-zUF" secondAttribute="leading" id="0v8-PP-SF4"/>
+                <constraint firstAttribute="trailing" secondItem="OOw-nw-6dt" secondAttribute="trailing" id="C6A-IS-u7V"/>
+                <constraint firstItem="OOw-nw-6dt" firstAttribute="top" secondItem="zg4-fX-zUF" secondAttribute="top" id="Gz3-R4-1Pm"/>
+                <constraint firstAttribute="bottom" secondItem="OOw-nw-6dt" secondAttribute="bottom" id="YUO-U1-Kub"/>
+                <constraint firstItem="s7f-rk-sQl" firstAttribute="centerX" secondItem="OOw-nw-6dt" secondAttribute="centerX" id="KM3-1D-kOn"/>
+                <constraint firstItem="s7f-rk-sQl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OOw-nw-6dt" secondAttribute="leading" constant="8" id="bcb-Kd-FhN"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s7f-rk-sQl" secondAttribute="trailing" constant="8" id="nQX-PY-zM2"/>
+                <constraint firstItem="s7f-rk-sQl" firstAttribute="top" secondItem="OOw-nw-6dt" secondAttribute="top" id="g4M-j0-KyF"/>
+                <constraint firstAttribute="bottom" secondItem="s7f-rk-sQl" secondAttribute="bottom" id="qMg-A7-ntm"/>
             </constraints>
             <connections>
-                <outlet property="imageView" destination="tFG-yJ-6Th" id="Odb-dR-tf4"/>
                 <outlet property="label" destination="s7f-rk-sQl" id="4gU-tb-BMB"/>
+                <outlet property="containerView" destination="OOw-nw-6dt" id="1u3-FS-vd4"/>
             </connections>
             <point key="canvasLocation" x="307" y="541"/>
         </collectionViewCell>

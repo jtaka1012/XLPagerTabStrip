@@ -26,7 +26,7 @@ import UIKit
 
 open class ButtonBarViewCell: UICollectionViewCell {
 
-    open var imageView: UIImageView!
+    open var containerView: UIView!
     open var label: UILabel!
 
     public override init(frame: CGRect) {
@@ -42,25 +42,31 @@ open class ButtonBarViewCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(imageView)
+        containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = .clear
+        contentView.addSubview(containerView)
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        contentView.addSubview(label)
+        containerView.addSubview(label)
 
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 35),
-            imageView.heightAnchor.constraint(equalToConstant: 35),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            label.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 8),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -8),
+            label.topAnchor.constraint(equalTo: containerView.topAnchor),
+            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
+
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
     }
 
     private func configureAccessibility() {

@@ -131,13 +131,14 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
             label.font = self?.settings.style.buttonBarItemFont
             label.text = childItemInfo.title
             let labelSize = label.intrinsicContentSize
-            return labelSize.width + (self?.settings.style.buttonBarItemLeftRightMargin ?? 8) * 2
+            let margin = self?.settings.style.buttonBarItemLeftRightMargin ?? 8
+            return labelSize.width + margin * 2 + 16 // account for label padding inside the cell
         })
 
         let buttonBarViewAux = buttonBarView ?? {
                 let flowLayout = UICollectionViewFlowLayout()
                 flowLayout.scrollDirection = .horizontal
-                let buttonBarHeight = settings.style.buttonBarHeight ?? 44
+                let buttonBarHeight = (settings.style.buttonBarHeight ?? 44) + 16
                 let buttonBar = ButtonBarView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
                 buttonBar.backgroundColor = .orange
                 buttonBar.selectedBar.backgroundColor = .black
@@ -345,7 +346,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let indicatorInfo = childController.indicatorInfo(for: self)
         // ここでタイトルを設定している
         let title = indicatorInfo.title ?? ""
-        cell.label.text = title + " 　"
+        cell.label.text = title
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = indicatorInfo.textColor ?? settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.label.backgroundColor = indicatorInfo.backgroundColor ?? UIColor.white
@@ -355,12 +356,6 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
-        if let image = indicatorInfo.image {
-            cell.imageView.image = image
-        }
-        if let highlightedImage = indicatorInfo.highlightedImage {
-            cell.imageView.highlightedImage = highlightedImage
-        }
         configureCell(cell, indicatorInfo: indicatorInfo)
 
         if pagerBehaviour.isProgressiveIndicator {

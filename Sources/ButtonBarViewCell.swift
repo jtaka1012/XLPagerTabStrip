@@ -60,7 +60,7 @@ open class ButtonBarViewCell: UICollectionViewCell {
 
             label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             label.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 8),
-            label.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -8),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -16),
             label.topAnchor.constraint(equalTo: containerView.topAnchor),
             label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
